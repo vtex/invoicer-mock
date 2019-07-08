@@ -1,0 +1,25 @@
+{
+  "name": "invoicer-mock",
+  "vendor": "vtex",
+  "version": "0.0.0",
+  "title": "Mock Invoicer for testing/debugging purpose",
+  "description": "Mock Invoicer which returns dummy values in the expected invoice VTEX format for testing/debugging purpose",
+  "categories": [],
+  "dependencies": {},
+  "builders": {
+    "node": "4.x"
+  },
+  "scripts": {
+    "prereleasy": "bash lint.sh"
+  },
+  "credentialType": "absolute",
+  "policies": [
+    {
+      "name": "colossus-fire-event"
+    },
+    {
+      "name": "colossus-write-logs"
+    }
+  ],
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+}

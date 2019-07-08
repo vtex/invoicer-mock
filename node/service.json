@@ -1,0 +1,13 @@
+{
+  "memory": 256,
+  "ttl": 10,
+  "timeout": 60,
+  "minReplicas": 2,
+  "maxReplicas": 4,
+  "routes": {
+    "invoice": {
+      "path": "/_v/invoice",
+      "public": true
+    }
+  }
+}
