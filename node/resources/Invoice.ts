@@ -1,5 +1,6 @@
 import ChangedItem from './ChangedItem'
 import Notification from './Notification'
+import Order from './Order'
 
 
 export const enum InvoiceType {
@@ -20,15 +21,23 @@ class Invoice {
   public courier: string
   public items: ChangedItem[]
 
-  constructor(notification: Notification) {
+  constructor(notification: Notification, order: Order) {
     this.type = notification.type
     this.issuanceDate = new Date().toDateString()
     this.invoiceNumber = Math.floor(Math.random() * 100000).toString()
     this.invoiceKey = Math.floor(Math.random() * 100000).toString()
-    this.invoiceValue = notification.changedItems.reduce((total, next) => total + next.price * next.quantity, 0)
+    this.invoiceValue = notification.items.map(item => {
+      const orderItemFound = order.items.find(orderItem => orderItem.id === item.id)
+      if(orderItemFound) {
+        const price = orderItemFound.sellingPrice || orderItemFound.price
+        return +price * item.quantity
+      }
+      return 0
+    }
+    ).reduce((total, itemPrice) => total + itemPrice, 0)
     this.invoiceUrl = EXTERNAL_PUBLIC_MOCK_INVOICE_URL
     this.courier = COURIER
-    this.items = notification.changedItems || []
+    this.items = notification.items || []
   }
 }
 

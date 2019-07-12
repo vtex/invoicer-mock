@@ -12,13 +12,63 @@
   "scripts": {
     "prereleasy": "bash lint.sh"
   },
-  "credentialType": "absolute",
+  "credentialType": "relative",
   "policies": [
+    {
+      "name": "vbase-read-write"
+    },
+    {
+      "name": "read-workspace-apps"
+    },
+    {
+      "name": "sphinx-is-admin"
+    },
     {
       "name": "colossus-fire-event"
     },
     {
       "name": "colossus-write-logs"
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "vtexid.vtex.com.br",
+        "path": "/api/vtexid/pub/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "*",
+        "path": "*"
+      }
+    },
+    {
+      "name": "AcessaTodosPedidos"
+    },
+    {
+      "name": "WorkflowAction"
+    },
+    {
+      "name": "PaymentAction"
+    },
+    {
+      "name": "ShippingAction"
+    },
+    {
+      "name": "OMSViewer"
+    },
+    {
+      "name": "RefundAction"
+    },
+    {
+      "name": "CancelAction"
+    },
+    {
+      "name": "Changes"
+    },
+    {
+      "name": "ShowTotalizers"
     }
   ],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"

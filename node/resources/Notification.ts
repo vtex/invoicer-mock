@@ -6,6 +6,7 @@ import { InvoiceType } from './Invoice'
 
 class Notification {
   public id: string
+  public items: ChangedItem[]
   public changedItems: ChangedItem[]
   public observation: string
   public timestamp: string
@@ -17,6 +18,10 @@ class Notification {
     this.changedItems =
       params.changedItems && params.changedItems.length > 0
         ? params.changedItems.map((changedItem: any) => new ChangedItem(changedItem))
+        : []
+    this.items =
+      params.items && params.items.length > 0
+        ? params.items.map((changedItem: any) => new ChangedItem(changedItem))
         : []
 
     this.observation = params.observation || ''

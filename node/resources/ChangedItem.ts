@@ -1,5 +1,5 @@
 class ChangedItem {
-  public id: number
+  public id: string
   public price: number
   public quantity: number
 
