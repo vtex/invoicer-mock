@@ -5,6 +5,7 @@ import { invoicer } from './middlewares/invoicer'
 import { method } from './middlewares/method'
 import { validate } from './middlewares/validate'
 import Notification from './resources/Notification'
+import Order from './resources/Order'
 
 
 const TIMEOUT_MS = 8000
@@ -37,8 +38,9 @@ declare global {
 
   // The shape of our State object found in `ctx.state`. This is used as state bag to communicate between middlewares.
   interface State {
-    orderId: string
+    order: Order
     notification: Notification
+    callbackUrl: string
   }
 }
 

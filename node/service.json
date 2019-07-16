@@ -6,7 +6,7 @@
   "maxReplicas": 4,
   "routes": {
     "invoice": {
-      "path": "/_v/invoice",
+      "path": "/_v/mock/invoice",
       "public": true
     }
   }

@@ -1,10 +1,12 @@
 import { UserInputError } from '@vtex/api'
 import * as parse from 'co-body'
 
+import { inspect } from 'util'
 import Notification from '../resources/Notification'
+import Order from '../resources/Order'
 
 export const validate = async (ctx: Context, next: () => Promise<any>) => {
-  const {clients: {invoiceNotifier: invoiceNotifierClient}} = ctx
+  const {clients: {invoiceNotifier: invoiceNotifierClient, oms: omsClient}} = ctx
 
   let data
   try {
@@ -13,20 +15,33 @@ export const validate = async (ctx: Context, next: () => Promise<any>) => {
     console.error(err)
   }
 
-  const { orderId, notificationId } = data
+  const { orderId, notificationId, callbackUrl } = data
   if (!orderId || !notificationId) {
     throw new UserInputError('Code is required')
   }
+  console.log(data)
 
-  const notificationData = await invoiceNotifierClient.getNotification(orderId, notificationId)
-  const notification = new Notification(notificationData)
+  ctx.state.callbackUrl = callbackUrl
 
-  if(!notification.isValid()){
-    throw new UserInputError('Notification is not valid')
+  try {
+    const notificationData = await invoiceNotifierClient.getNotification(orderId, notificationId)
+    const notification = new Notification(notificationData)
+
+    if(!notification.isValid()){
+      throw new UserInputError('Notification is not valid')
+    }
+    ctx.state.notification = notification
+
+    const orderData = await omsClient.getOrder(orderId)
+    const order = new Order(orderData)
+
+    if(!order.isValid()){
+      throw new UserInputError('Order is not valid')
+    }
+    ctx.state.order = order
+    await next()
+  } catch (err) {
+    ctx.status = err.response && err.response.status ? err.response.status : 500
+    ctx.body = err.response && err.response.data ? err.response.data : JSON.stringify(inspect(err))
   }
-
-  ctx.state.notification = notification
-  ctx.state.orderId = orderId
-
-  await next()
 }

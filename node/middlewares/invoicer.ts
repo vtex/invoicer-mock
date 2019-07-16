@@ -1,26 +1,18 @@
+import { inspect } from 'util'
 import Invoice from '../resources/Invoice'
 
 export const invoicer = async (ctx: Context, next: () => Promise<any>) => {
-  const {state: {notification, orderId}, clients: {invoiceNotifier: invoiceNotifierClient, oms: omsClient}} = ctx
-
+  const {state: {notification, order, callbackUrl}, clients: {callbackNotifier: callbackNotifierClient}} = ctx
   try {
-    const order = await omsClient.getOrder(orderId)
-
     const mockInvoice = new Invoice(notification, order)
-    try {
-      await invoiceNotifierClient.postInvoice(orderId, mockInvoice)
-      ctx.status = 200
-      await next()
-    } catch (err) {
-      console.log(err)
-      ctx.status = 406
-      ctx.body = 'invoice funeu'
-      await next()
+    if(callbackUrl) {
+      await callbackNotifierClient.notify(callbackUrl, mockInvoice)
     }
+    ctx.body = mockInvoice
+    ctx.status = 200
   } catch (err) {
-    console.log(err)
-    ctx.status = 406
-    ctx.body = 'order funeu'
+    ctx.status = err.response && err.response.status ? err.response.status : 500
+    ctx.body = err.response && err.response.data ? err.response.data : JSON.stringify(inspect(err))
     await next()
   }
 }

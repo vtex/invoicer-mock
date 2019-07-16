@@ -1,5 +1,6 @@
 import { IOClients } from '@vtex/api'
 
+import CallbackNotifier from './callbackNotifier'
 import InvoiceNotifier from './invoiceNotifier'
 import Oms from './oms'
 
@@ -11,5 +12,9 @@ export class Clients extends IOClients {
 
   public get oms() {
     return this.getOrSet('oms', Oms)
+  }
+
+  public get callbackNotifier() {
+    return this.getOrSet('callbackNotifier', CallbackNotifier)
   }
 }

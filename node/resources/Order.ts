@@ -5,8 +5,14 @@ class Order {
   public items: OrderItem[]
 
   constructor(params: any) {
-    this.orderId = params.type
-    this.items = params.changedItems || []
+    this.orderId = params.orderId
+    this.items = params.items && params.items.length
+      ? params.items.map((item: any) => new OrderItem(item))
+      : []
+  }
+
+  public isValid() {
+    return this.items && this.orderId
   }
 }
 
