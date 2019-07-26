@@ -7,18 +7,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add eslint to the project
+
+### Changed
+
+- Lint all files
+- Name handlers for better metrics
+
 ## [0.0.2] - 2019-07-16
+
+### Added
+
+- Add OMS client for retrieving invoice value based on the notification details
 
 ## [0.0.1] - 2019-07-08
 
-## [0.0.3] - 2019-04-26
-
-## [0.0.2] - 2019-04-26
-
-### Changed
-- Using new IOClient
-
-## [0.0.1] - 2019-03-29
-
 ### Added
-- Initial example
+
+- Add initial structure for generating mock invoices from a notifcation of the invoce-notifier

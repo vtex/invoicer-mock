@@ -1,0 +1,12 @@
+{
+  "name": "vtex.invoice-notifier",
+  "scripts": {
+    "lint": "cd node && tsc --noEmit --pretty && eslint --ext ts ."
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-vtex": "^11.0.0",
+    "prettier": "^1.18.2",
+    "typescript": "^3.5.3"
+  }
+}
