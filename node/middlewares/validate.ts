@@ -16,6 +16,7 @@ export async function validate(ctx: Context, next: () => Promise<any>) {
     data = await parse.json(ctx.req);
   } catch (err) {
     console.error(err);
+    throw new UserInputError(err);
   }
 
   const { orderId, notificationId, callbackUrl } = data;

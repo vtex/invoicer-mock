@@ -10,6 +10,7 @@ export const enum InvoiceType {
 const EXTERNAL_PUBLIC_MOCK_INVOICE_URL =
   "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
 const COURIER = "COURIER";
+const FIFTEEN_DIGITS = 1000000000000000;
 
 class Invoice {
   public type: InvoiceType;
@@ -24,29 +25,42 @@ class Invoice {
   public constructor(notification: Notification, order: Order) {
     this.type = notification.type;
     this.issuanceDate = new Date().toDateString();
-    this.invoiceNumber = Math.floor(Math.random() * 100000000000).toString();
-    this.invoiceKey = Math.floor(Math.random() * 100000000000).toString();
+    this.invoiceNumber = Math.floor(Math.random() * FIFTEEN_DIGITS).toString();
+    this.invoiceKey = Math.floor(Math.random() * FIFTEEN_DIGITS).toString();
+    this.invoiceValue = this.getInvoiceValue(notification, order);
+    this.invoiceUrl = EXTERNAL_PUBLIC_MOCK_INVOICE_URL;
+    this.courier = COURIER;
+    this.items = notification.items || [];
+  }
+
+  private getInvoiceValue(notification: Notification, order: Order) {
     const invoiceValueFromNotification = notification.items
       .map(item => {
-        const orderItemFound = order.items.find(
-          orderItem => orderItem.id === item.id
-        );
+        let orderItemFound;
+        if (item.itemIndex) {
+          orderItemFound = order.items[item.itemIndex];
+        } else {
+          orderItemFound = order.items.find(
+            orderItem => orderItem.id === item.id
+          );
+        }
+
         if (orderItemFound) {
           const price = orderItemFound.sellingPrice || orderItemFound.price;
-          return +price * item.quantity;
+          return price * item.quantity;
         }
         return 0;
       })
       .reduce((total, itemPrice) => total + itemPrice, 0);
+
     const totalOrderValue = order.items
       .map(item => +item.sellingPrice * item.quantity)
       .reduce((total, itemPrice) => total + itemPrice, 0);
-    this.invoiceValue = invoiceValueFromNotification
+
+    const invoiceValue = invoiceValueFromNotification
       ? invoiceValueFromNotification
       : totalOrderValue;
-    this.invoiceUrl = EXTERNAL_PUBLIC_MOCK_INVOICE_URL;
-    this.courier = COURIER;
-    this.items = notification.items || [];
+    return invoiceValue;
   }
 }
 

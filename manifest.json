@@ -5,7 +5,9 @@
   "title": "Mock Invoicer for testing/debugging purpose",
   "description": "Mock Invoicer which returns dummy values in the expected invoice VTEX format for testing/debugging purpose",
   "categories": [],
-  "dependencies": {},
+  "peerDependencies": {
+    "vtex.invoice-notifier": "0.x"
+  },
   "builders": {
     "node": "4.x"
   },
@@ -39,8 +41,15 @@
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "*",
-        "path": "*"
+        "host": "portal.vtexcommercestable.com.br",
+        "path": "/api/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "invoice-notifier.vtex.aws-us-east-1.vtex.io",
+        "path": "/*"
       }
     },
     {

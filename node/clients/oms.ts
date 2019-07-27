@@ -1,14 +1,12 @@
-import { ExternalClient, InstanceOptions, IOContext } from "@vtex/api";
+import { InstanceOptions, IOContext, JanusClient } from "@vtex/api";
 
-const ORDER_BASE_URL = (accountName: string, workspace: string) =>
-  `http://${workspace}--${accountName}.myvtex.com/api/oms`;
-export default class Oms extends ExternalClient {
+export default class Oms extends JanusClient {
   public constructor(context: IOContext, options?: InstanceOptions) {
-    super(ORDER_BASE_URL(context.account, context.workspace), context, options);
+    super(context, options);
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async getOrder(orderId: string): Promise<any> {
-    return this.http.get(`/pvt/orders/${orderId}`, {
+    return this.http.get(`/api/oms/pvt/orders/${orderId}`, {
       headers: {
         "Proxy-Authorization": this.context.authToken,
         VtexIdclientAutCookie: this.context.authToken,
