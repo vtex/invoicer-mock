@@ -1,19 +1,18 @@
 {
   "compilerOptions": {
+    "types": ["node"],
     "module": "commonjs",
+    "moduleResolution": "node",
     "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es6",
     "sourceMap": true,
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "*": ["node_modules/*"]
+      "*": ["node_modules/*", "src/types/*"]
     },
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictPropertyInitialization": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true
   },
   "include": ["src/**/*"]

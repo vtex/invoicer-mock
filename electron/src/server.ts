@@ -44,7 +44,7 @@ function getApp() {
     return app
   }
 
-  console.log(`Creating new app ${app}`)
+  console.log('Creating new app...')
 
   return getNewApp()
 }

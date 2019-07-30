@@ -1,17 +1,36 @@
-import { app, BrowserWindow } from 'electron'
+declare var global: any
+
+import { app, BrowserWindow, Tray } from 'electron'
 import * as path from 'path'
+
 import server from './server'
 
-console.log('>>> Init 5', { versions: process.versions })
-import * as core from 'express-serve-static-core'
-let expressApp: core.Express
+console.log('>>> Versions', { versions: process.versions })
+
+// tslint:disable-next-line no-var-requires
+const { version } = require('../package.json')
+
+global.appVersion = version
+
+if (app && app.dock) {
+  app.dock.hide()
+}
 
 let mainWindow: Electron.BrowserWindow | null
+let tray
 
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
+    frame: false,
+    fullscreenable: false,
     height: 600,
+    resizable: false,
+    show: false,
+    skipTaskbar: true,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+    },
     width: 800,
   })
 
@@ -30,14 +49,36 @@ function createWindow() {
   })
 
   if (server && server.getApp) {
-    expressApp = server.getApp()
+    server.getApp()
   }
+}
+
+function toggleWindow() {
+  if (!mainWindow) {
+    return
+  }
+
+  if (mainWindow.isVisible()) {
+    mainWindow.hide()
+  } else {
+    mainWindow.show()
+  }
+}
+
+function createTray() {
+  tray = new Tray(path.join(__dirname, 'icon.png'))
+  tray.on('right-click', toggleWindow)
+  tray.on('double-click', toggleWindow)
+  tray.on('click', toggleWindow)
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createTray()
+  createWindow()
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

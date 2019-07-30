@@ -1,27 +1,17 @@
 {
-  "name": "electron-quick-start-typescript",
+  "name": "invoicer-mock-electron",
   "version": "1.0.0",
-  "description": "A minimal Electron application written with Typescript",
+  "description": "nvoicer mock electron app",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp src/*.png dist/",
     "watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "start": "npm run build && electronmon ./dist/main.js"
   },
-  "repository": "https://github.com/electron/electron-quick-start-typescript",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo",
-    "typescript"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
   "devDependencies": {
     "@types/cors": "^2.8.5",
     "@types/express": "^4.17.0",
+    "@types/node": "^12.6.8",
     "electron": "^6.0.0",
     "electron-is-dev": "^1.1.0",
     "electronmon": "^0.4.0",
