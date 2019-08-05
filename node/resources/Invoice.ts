@@ -8,7 +8,7 @@ export const enum InvoiceType {
 }
 
 const EXTERNAL_PUBLIC_MOCK_INVOICE_URL =
-  "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+  "https://instore.vteximg.com.br/assets/vtex.instore/files/danfe___b8ffe2564f8298ee884dbea7b12a55a2.pdf";
 const COURIER = "COURIER";
 
 class Invoice {
