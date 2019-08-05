@@ -34,11 +34,14 @@ function getNewApp() {
 
     await sleep(1000) // simulate going to server
 
+    const exampleInvoiceLink =
+      'https://instore.vteximg.com.br/assets/vtex.instore/files/nfce___1662c41872c9667a5e31f64248af4d8e.pdf'
+
     // Fake invoice response
     res.json({
       invoiceNumber: Math.floor(Math.random() * 100000000000).toString(),
-      invoiceUrl:
-        'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      invoiceUrl: exampleInvoiceLink, // To save on order
+      printUrl: exampleInvoiceLink, // Optional parameter if wanted to change the printing url
     })
   })
 
