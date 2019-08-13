@@ -45,6 +45,21 @@ function getNewApp() {
     })
   })
 
+  app.post('/invoice-order-error', async (req, res) => {
+    const context = req.body
+    console.log(
+      `Server invoice order received: ${JSON.stringify(context)}`,
+      'server'
+    )
+
+    await sleep(1000) // simulate going to server
+
+    // Fake invoice response
+    res.status(500).json({
+      message: 'Invoice mock error',
+    })
+  })
+
   appServer = app.listen(PORT, () => {
     console.log(`inStore server app listening on ${PORT}!`, 'server')
   })
