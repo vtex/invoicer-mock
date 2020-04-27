@@ -1,7 +1,8 @@
 {
   "name": "vtex.invoice-notifier",
   "scripts": {
-    "lint": "cd node && tsc --noEmit --pretty && eslint --ext ts ."
+    "lint": "cd node && tsc --noEmit --pretty && eslint --ext ts .",
+    "deploy": "releasy -f manifest.json --stable"
   },
   "devDependencies": {
     "eslint": "^6.1.0",

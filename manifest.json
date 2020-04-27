@@ -10,7 +10,8 @@
     "node": "4.x"
   },
   "scripts": {
-    "prereleasy": "bash lint.sh"
+    "prereleasy": "bash lint.sh",
+    "postreleasy": "vtex publish && vtex deploy"
   },
   "credentialType": "relative",
   "policies": [
