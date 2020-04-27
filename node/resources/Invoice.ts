@@ -7,8 +7,10 @@ export const enum InvoiceType {
   Input = "Input"
 }
 
+// const EXTERNAL_PUBLIC_MOCK_INVOICE_URL =
+//   "https://instore.vteximg.com.br/assets/vtex.instore/files/danfe___b8ffe2564f8298ee884dbea7b12a55a2.pdf";
 const EXTERNAL_PUBLIC_MOCK_INVOICE_URL =
-  "https://instore.vteximg.com.br/assets/vtex.instore/files/danfe___b8ffe2564f8298ee884dbea7b12a55a2.pdf";
+  "https://instore.vtexassets.com/assets/vtex.instore/files/nota-maino___285e171cf6255df0b224d2809e8aae7e.png";
 const COURIER = "COURIER";
 
 class Invoice {
