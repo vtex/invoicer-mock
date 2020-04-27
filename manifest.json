@@ -11,7 +11,7 @@
   },
   "scripts": {
     "prereleasy": "bash lint.sh",
-    "postreleasy": "vtex publish && vtex deploy"
+    "postreleasy": "vtex publish; vtex deploy"
   },
   "credentialType": "relative",
   "policies": [
