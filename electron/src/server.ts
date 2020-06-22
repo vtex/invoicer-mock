@@ -27,10 +27,7 @@ function getNewApp() {
 
   app.post('/invoice-order', async (req, res) => {
     const context = req.body
-    console.log(
-      `Server invoice order received: ${JSON.stringify(context)}`,
-      'server'
-    )
+    console.log(`Server invoice order received: ${JSON.stringify(context)}`, 'server')
 
     await sleep(1000) // simulate going to server
 
@@ -47,10 +44,7 @@ function getNewApp() {
 
   app.post('/invoice-order-error', async (req, res) => {
     const context = req.body
-    console.log(
-      `Server invoice order received: ${JSON.stringify(context)}`,
-      'server'
-    )
+    console.log(`Server invoice order received: ${JSON.stringify(context)}`, 'server')
 
     await sleep(1000) // simulate going to server
 
