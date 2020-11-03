@@ -32,8 +32,8 @@ class Invoice {
     this.invoiceNumber = Math.floor(Math.random() * 100000000000).toString()
     this.invoiceKey = Math.floor(Math.random() * 100000000000).toString()
     const invoiceValueFromNotification = notification.items
-      .map((item) => {
-        const orderItemFound = order.items.find((orderItem) => orderItem.id === item.id)
+      .map(item => {
+        const orderItemFound = order.items.find(orderItem => orderItem.id === item.id)
         if (orderItemFound) {
           const price = orderItemFound.sellingPrice || orderItemFound.price
           return +price * item.quantity
@@ -42,7 +42,7 @@ class Invoice {
       })
       .reduce((total, itemPrice) => total + itemPrice, 0)
     const totalOrderValue = order.items
-      .map((item) => +item.sellingPrice * item.quantity)
+      .map(item => +item.sellingPrice * item.quantity)
       .reduce((total, itemPrice) => total + itemPrice, 0)
     this.invoiceValue = invoiceValueFromNotification
       ? invoiceValueFromNotification

@@ -1,3 +1,3 @@
-export type Volume = {
+export interface Volume {
   index: number
 }

@@ -1,20 +1,20 @@
-import { ExternalClient, InstanceOptions, IOContext } from "@vtex/api";
+import { ExternalClient, InstanceOptions, IOContext } from '@vtex/api'
 
 const ORDER_BASE_URL = (accountName: string, workspace: string) =>
-  `http://${workspace}--${accountName}.myvtex.com/api/oms`;
+  `http://${workspace}--${accountName}.myvtex.com/api/oms`
 export default class Oms extends ExternalClient {
   public constructor(context: IOContext, options?: InstanceOptions) {
-    super(ORDER_BASE_URL(context.account, context.workspace), context, options);
+    super(ORDER_BASE_URL(context.account, context.workspace), context, options)
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async getOrder(orderId: string): Promise<any> {
     return this.http.get(`/pvt/orders/${orderId}`, {
       headers: {
-        "Proxy-Authorization": this.context.authToken,
+        'Proxy-Authorization': this.context.authToken,
         VtexIdclientAutCookie: this.context.authToken,
-        "X-Vtex-Use-Https": true
+        'X-Vtex-Use-Https': true,
       },
-      metric: "notification-get"
-    });
+      metric: 'notification-get',
+    })
   }
 }

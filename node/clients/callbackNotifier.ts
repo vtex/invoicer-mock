@@ -1,9 +1,9 @@
-import { ExternalClient, InstanceOptions, IOContext } from "@vtex/api";
-import Invoice from "../resources/Invoice";
+import { ExternalClient, InstanceOptions, IOContext } from '@vtex/api'
+import Invoice from '../resources/Invoice'
 
 export default class CallbackNotifier extends ExternalClient {
   public constructor(context: IOContext, options?: InstanceOptions) {
-    super("", context, options);
+    super('', context, options)
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -11,9 +11,9 @@ export default class CallbackNotifier extends ExternalClient {
     return this.http.post(callbackUrl, invoice, {
       headers: {
         VtexIdclientAutCookie: this.context.authToken,
-        "X-Vtex-Use-Https": true
+        'X-Vtex-Use-Https': true,
       },
-      metric: "callback-post"
-    });
+      metric: 'callback-post',
+    })
   }
 }
