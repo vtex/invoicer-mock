@@ -1,20 +1,20 @@
 /* global metrics */
-import { ClientsConfig, LRUCache, Service, ServiceContext } from "@vtex/api";
+import { ClientsConfig, LRUCache, Service, ServiceContext } from '@vtex/api'
 
-import { Clients } from "./clients";
-import { invoicer } from "./middlewares/invoicer";
-import { method } from "./middlewares/method";
-import { validate } from "./middlewares/validate";
-import Notification from "./resources/Notification";
-import Order from "./resources/Order";
+import { Clients } from './clients'
+import { invoicer } from './middlewares/invoicer'
+import { method } from './middlewares/method'
+import { validate } from './middlewares/validate'
+import Notification from './resources/Notification'
+import Order from './resources/Order'
 
-const TIMEOUT_MS = 8000;
+const TIMEOUT_MS = 8000
 
 // Create a LRU memory cache for the Status client.
 // The @vtex/api HttpClient respects Cache-Control headers and uses the provided cache.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const memoryCache = new LRUCache<string, any>({ max: 5000 });
-metrics.trackCache("invoiceNotifier", memoryCache);
+const memoryCache = new LRUCache<string, any>({ max: 5000 })
+metrics.trackCache('invoiceNotifier', memoryCache)
 
 // This is the configuration for clients available in `ctx.clients`.
 const clients: ClientsConfig<Clients> = {
@@ -24,24 +24,24 @@ const clients: ClientsConfig<Clients> = {
     // All IO Clients will be initialized with these options, unless otherwise specified.
     default: {
       retries: 2,
-      timeout: TIMEOUT_MS
+      timeout: TIMEOUT_MS,
     },
     // This key will be merged with the default options and add this cache to our Status client.
     invoiceNotifier: {
-      memoryCache
-    }
-  }
-};
+      memoryCache,
+    },
+  },
+}
 
 declare global {
   // We declare a global Context type just to avoid re-writing ServiceContext<Clients, State> in every handler and resolver
-  type Context = ServiceContext<Clients, State>;
+  type Context = ServiceContext<Clients, State>
 
   // The shape of our State object found in `ctx.state`. This is used as state bag to communicate between middlewares.
   interface State {
-    order: Order;
-    notification: Notification;
-    callbackUrl: string;
+    order: Order
+    notification: Notification
+    callbackUrl: string
   }
 }
 
@@ -50,6 +50,6 @@ export default new Service<Clients, State>({
   clients,
   routes: {
     // `status` is the route ID from service.json. It maps to an array of middlewares (or a single handler).
-    invoice: [method, validate, invoicer]
-  }
-});
+    invoice: [method, validate, invoicer],
+  },
+})

@@ -1,20 +1,18 @@
-import OrderItem from "./OrderItem";
+import OrderItem from './OrderItem'
 
 class Order {
-  public orderId: string;
-  public items: OrderItem[];
+  public orderId: string
+  public items: OrderItem[]
 
   public constructor(params: { orderId: string; items: OrderItem[] }) {
-    this.orderId = params.orderId;
+    this.orderId = params.orderId
     this.items =
-      params.items && params.items.length
-        ? params.items.map(item => new OrderItem(item))
-        : [];
+      params.items && params.items.length ? params.items.map(item => new OrderItem(item)) : []
   }
 
   public isValid() {
-    return this.items && this.orderId;
+    return this.items && this.orderId
   }
 }
 
-export default Order;
+export default Order
