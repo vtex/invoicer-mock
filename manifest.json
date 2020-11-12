@@ -1,7 +1,7 @@
 {
   "name": "invoicer-mock",
   "vendor": "vtex",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "title": "Mock Invoicer for testing/debugging purpose",
   "description": "Mock Invoicer which returns dummy values in the expected invoice VTEX format for testing/debugging purpose",
   "categories": [],
