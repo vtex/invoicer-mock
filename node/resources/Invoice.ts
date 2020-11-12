@@ -47,6 +47,11 @@ class Invoice {
     this.invoiceValue = invoiceValueFromNotification
       ? invoiceValueFromNotification
       : totalOrderValue
+    const freightValue =
+      order.shippingData.logisticsInfo && order.shippingData.logisticsInfo.length > 0
+        ? order.shippingData.logisticsInfo[0].sellingPrice
+        : 0
+    this.invoiceValue += freightValue
     this.invoiceUrl = EXTERNAL_PUBLIC_MOCK_INVOICE_URL
     this.courier = COURIER
     this.items = notification.items || []
