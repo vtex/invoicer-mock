@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- Add freigth value to the invoice value
+
 ## [0.0.5] - 2020-11-03
 
 - Adding Volumes and Printable Observation
